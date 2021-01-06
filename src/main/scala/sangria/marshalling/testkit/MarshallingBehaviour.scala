@@ -249,7 +249,7 @@ trait MarshallingBehaviour {
         iu.getRootMapValue(marshaled, "non-existing") should be (None)
 
         iu.isListNode(marshaled) should be (false)
-        iu.isScalarNode(marshaled) should be (false)
+        iu.isScalarNode(marshaled) should be (true)
         iu.isEnumNode(marshaled) should be (false)
         iu.isVariableNode(marshaled) should be (false)
       }
