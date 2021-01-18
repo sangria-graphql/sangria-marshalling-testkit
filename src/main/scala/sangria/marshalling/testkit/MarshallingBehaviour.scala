@@ -171,6 +171,27 @@ trait MarshallingBehaviour {
       iu.isListNode(marshaled) should be (false)
     }
 
+    "(un)marshal map scalar values" in {
+      val map = rm.mapNode(Vector("a" -> rm.scalarNode(1, "TestInt", Set.empty)))
+      val marshaled = rm.scalarNode(map, "TestObject", Set.empty)
+
+      val scalar = iu.getScalarValue(marshaled)
+      val scalaScalar = iu.getScalaScalarValue(marshaled)
+
+      if (scalar != scalaScalar)
+        scalar should be (marshaled)
+
+      scalaScalar should be (Map("a" -> 1))
+
+      iu.isScalarNode(marshaled) should be (true)
+      iu.isDefined(marshaled) should be (true)
+
+      iu.isEnumNode(marshaled) should be (false)
+      iu.isVariableNode(marshaled) should be (false)
+      iu.isMapNode(marshaled) should be (true)
+      iu.isListNode(marshaled) should be (false)
+    }
+
     "(un)marshal enum values" in {
       val marshaled = rm.enumNode("FOO", "Test")
 
